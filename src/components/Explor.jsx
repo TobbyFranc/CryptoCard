@@ -5,9 +5,11 @@ import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 
 const Explor = () => {
   const [coins, setCoins] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Fetch live coin data
   const fetchData = async () => {
+    setLoading(true);
     try {
       const res = await fetch(
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,cardano,solana&sparkline=true"
@@ -16,6 +18,8 @@ const Explor = () => {
       setCoins(data);
     } catch (err) {
       console.error("Error fetching coin data:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,7 +78,34 @@ const Explor = () => {
               </tr>
             </thead>
             <tbody>
-              {coins.map((coin) => {
+              {loading
+                ? Array(4).fill(0).map((_, i) => (
+                    <tr key={i} className="border-t border-[var(--secondary-text-color)]/20">
+                      <td className="p-2">
+                        <div className="flex items-center gap-2">
+                          <div className="w-6 h-6 bg-gray-300 animate-pulse rounded-full"></div>
+                          <div className="w-16 h-4 bg-gray-300 animate-pulse"></div>
+                        </div>
+                        <div className="mt-1 w-12 h-4 bg-gray-300 animate-pulse"></div>
+                      </td>
+                      <td className="p-2">
+                        <div className="w-16 h-4 bg-gray-300 animate-pulse"></div>
+                      </td>
+                      <td className="p-2">
+                        <div className="w-12 h-4 bg-gray-300 animate-pulse"></div>
+                      </td>
+                      <td className="p-2 hidden md:table-cell">
+                        <div className="w-20 h-4 bg-gray-300 animate-pulse"></div>
+                      </td>
+                      <td className="p-2 hidden md:table-cell">
+                        <div className="w-16 h-4 bg-gray-300 animate-pulse"></div>
+                      </td>
+                      <td className="p-2">
+                        <div className="w-20 h-10 bg-gray-300 animate-pulse"></div>
+                      </td>
+                    </tr>
+                  ))
+                : coins.map((coin) => {
                 const isUp = coin.price_change_percentage_24h >= 0;
                 return (
                   <tr

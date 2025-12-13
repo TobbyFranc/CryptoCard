@@ -12,9 +12,11 @@ const Dashboard = () => {
   const [selectedCoin, setSelectedCoin] = useState(null);
   const [filter, setFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const res = await fetch(
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=30&page=1&sparkline=true"
@@ -32,6 +34,8 @@ const Dashboard = () => {
       }
     } catch (err) {
       console.error("Error fetching coin data:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -78,8 +82,17 @@ const Dashboard = () => {
         </button>
 
         {/* Chart Section */}
-        {selectedCoin && (
-          <div className="mt-24 w-full px-4">
+        {loading ? (
+          <div className="mt-28 w-full px-4">
+            <div className="w-full h-64 bg-gray-300 animate-pulse rounded-lg mb-6"></div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-[var(--secondary-text-color)]">
+              {Array(6).fill(0).map((_, i) => (
+                <div key={i} className="p-4 rounded-lg bg-gray-300 animate-pulse h-20"></div>
+              ))}
+            </div>
+          </div>
+        ) : selectedCoin && (
+          <div className="mt-28 w-full px-4">
             <ChartSection coin={selectedCoin} />
 
             {/* Coin details */}
@@ -203,13 +216,17 @@ const Dashboard = () => {
 
         {/* Coin Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 px-4">
-          {filteredCoins.map((coin) => (
-            <CoinCard
-              key={coin.id}
-              coin={coin}
-              onSelect={() => handleSelectCoin(coin)}
-            />
-          ))}
+          {loading
+            ? Array(6).fill(0).map((_, i) => (
+                <div key={i} className="p-6 rounded-lg bg-gray-300 animate-pulse h-48"></div>
+              ))
+            : filteredCoins.map((coin) => (
+                <CoinCard
+                  key={coin.id}
+                  coin={coin}
+                  onSelect={() => handleSelectCoin(coin)}
+                />
+              ))}
         </div>
       </main>
 

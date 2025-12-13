@@ -8,7 +8,7 @@ const CoinCard = ({ coin, onSelect }) => {
   return (
     <div
       onClick={onSelect}
-      className="cursor-pointer p-6 rounded-lg bg-[var(--card-bg-color)] shadow hover:shadow-lg transition w-full"
+      className="cursor-pointer p-6 rounded-lg bg-[var(--card-bg-color)] shadow hover:shadow-lg transition w-full overflow-hidden"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
@@ -38,7 +38,7 @@ const CoinCard = ({ coin, onSelect }) => {
 
       {/* Sparkline */}
       {coin.sparkline_in_7d && (
-        <div className="h-16">
+        <div className="h-16 aspect-auto object-contain">
           <Sparklines data={coin.sparkline_in_7d.price} limit={30}>
             <SparklinesLine
               color={isPositive ? "green" : "red"}
