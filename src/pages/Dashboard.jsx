@@ -48,6 +48,7 @@ const Dashboard = () => {
   const handleSelectCoin = (coin) => {
     setSelectedCoin(coin);
     localStorage.setItem("lastCoin", coin.id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Filter coins
