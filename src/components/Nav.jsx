@@ -82,12 +82,14 @@ const Nav = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-[var(--card-bg-color)] shadow-lg px-6 py-4 space-y-4">
+        <div className="md:hidden bg-[var(--card-bg-color)] shadow-lg px-6 py-4">
+          <div className="flex flex-col items-center space-y-4">
             <a
   href="#hero"
   onClick={(e) => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setMenuOpen(false);
   }}
   className="relative group cursor-pointer"
 >
@@ -95,21 +97,26 @@ const Nav = () => {
   <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--accent)] transition-all group-hover:w-full"></span>
 </a>
 
-          <a href="#about" className="block hover:text-[var(--accent)]">About</a>
-          <a href="#explor" className="block hover:text-[var(--accent)]">Explore</a>
-          <a href="#faqs" className="block hover:text-[var(--accent)]">FAQs</a>
-          <Link
-            to="/dashboard"
-            className="block px-4 py-2 bg-[var(--accent)] text-[var(--main-bg-color)] rounded-md hover:bg-[var(--accent)]/80 transition"
-          >
-            Get Started
-          </Link>
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="mt-2 p-2 cursor-pointer rounded-full bg-[var(--accent)] text-[var(--main-bg-color)] hover:bg-[var(--accent)]/80 transition"
-          >
-            {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
-          </button>
+            <a href="#about" onClick={() => setMenuOpen(false)} className="hover:text-[var(--accent)]">About</a>
+            <a href="#explor" onClick={() => setMenuOpen(false)} className="hover:text-[var(--accent)]">Explore</a>
+            <a href="#faqs" onClick={() => setMenuOpen(false)} className="hover:text-[var(--accent)]">FAQs</a>
+            <Link
+              to="/dashboard"
+              onClick={() => setMenuOpen(false)}
+              className="px-4 py-2 bg-[var(--accent)] text-[var(--main-bg-color)] rounded-md hover:bg-[var(--accent)]/80 transition"
+            >
+              Get Started
+            </Link>
+            <button
+              onClick={() => {
+                setDarkMode(!darkMode);
+                setMenuOpen(false);
+              }}
+              className="p-2 rounded-full bg-[var(--accent)] text-[var(--main-bg-color)] hover:bg-[var(--accent)]/80 transition"
+            >
+              {darkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
+            </button>
+          </div>
         </div>
       )}
     </nav>
