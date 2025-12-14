@@ -36,14 +36,14 @@ const Contact = () => {
 
     emailjs
       .send(
-        "service_vbn1r5e", // replace with your EmailJS service ID
-        "template_gbb5abe", // replace with your EmailJS template ID
+  import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
         },
-        "Wo3JlrZJ5cdiHS-ml" // replace with your EmailJS user/public key
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEYs
       )
       .then(
         () => {
