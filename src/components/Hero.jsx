@@ -47,7 +47,7 @@ const Hero = () => {
         className="z-10"
       >
         <Link
-          to="/dshboard"
+          to="/dashboard"
           className="px-6 py-3 bg-[var(--accent)] text-[var(--main-bg-color)] rounded-md hover:bg-[var(--accent)]/80 transition font-semibold shadow-lg"
         >
           Get Started
