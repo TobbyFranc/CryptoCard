@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
 import AboutDetails from "./pages/AboutDetails";
-import ScrollToTop from "./components/ScrollToTop"; 
+import ScrollToTop from "./components/ScrollToTop";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -49,6 +50,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about-details" element={<AboutDetails />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
