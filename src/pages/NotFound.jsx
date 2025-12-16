@@ -17,8 +17,7 @@ const NotFound = () => {
 
       {/* Message */}
       <p className="text-lg md:text-xl mb-6 text-center max-w-md">
-        Oops! Nothing to see here.
-        The page you’re searching for doesn’t exist. Not yet!
+        Oops! The page you’re searching for doesn’t exist. Not yet!
       </p>
 
       {/* Call to Action */}
